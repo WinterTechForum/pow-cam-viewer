@@ -6,7 +6,8 @@
     "latitude": 39.9372,
     "longitude": -105.5825,
     "webcamsUrl": "https://www.eldora.com/the-mountain/current-conditions/webcams/",
-    "cameras": []
+    "cameras": [],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Eldora-Mountain-Resort/forecasts/widget/mid/i"
   },
   {
     "id": "winter-park",
@@ -39,8 +40,15 @@
         "type": "iframe",
         "provider": "CamStreamer",
         "url": "https://camstreamer.com/embed/8v334V7UDYwodQScLzh63Y6BaqoAQNmj5qhEjsjF"
+      },
+      {
+        "name": "Town Cam",
+        "type": "image",
+        "provider": "Winter Park Resort",
+        "url": "https://cams.winterparkresort.com/best-western-cam.jpg"
       }
-    ]
+    ],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Winter-Park/forecasts/widget/mid/i"
   },
   {
     "id": "loveland",
@@ -55,8 +63,39 @@
         "type": "iframe",
         "provider": "Loveland Ski Area",
         "url": "https://cams.skiloveland.com/lsacams/W.html"
+      },
+      {
+        "name": "Snow Cam",
+        "type": "image",
+        "provider": "Loveland Ski Area",
+        "url": "https://cams.skiloveland.com/snowcam/snowcam.jpg"
+      },
+      {
+        "name": "Ptarm Roost",
+        "type": "image",
+        "provider": "Loveland Ski Area",
+        "url": "https://cams.skiloveland.com/lsacams/ptarmroost/ptarmroost.jpg"
+      },
+      {
+        "name": "Basin Deck",
+        "type": "image",
+        "provider": "Loveland Ski Area",
+        "url": "https://cams.skiloveland.com/lsacams/basindeck/basindeck.jpg"
+      },
+      {
+        "name": "Chet's Stop",
+        "type": "image",
+        "provider": "Loveland Ski Area",
+        "url": "https://cams.skiloveland.com/lsacams/chetstop/chetstop.jpg"
+      },
+      {
+        "name": "Valley Deck",
+        "type": "image",
+        "provider": "Loveland Ski Area",
+        "url": "https://cams.skiloveland.com/lsacams/valleydeck/valleydeck.jpg"
       }
-    ]
+    ],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Loveland/forecasts/widget/mid/i"
   },
   {
     "id": "monarch",
@@ -83,8 +122,27 @@
         "type": "iframe",
         "provider": "Brownrice",
         "url": "https://player.brownrice.com/embed/skimonarchpanoflats/live"
+      },
+      {
+        "name": "Powder Cam snapshot",
+        "type": "image",
+        "provider": "webcam.io",
+        "url": "https://webcam.io/webcams/z7Arw9/latest.jpg"
+      },
+      {
+        "name": "Storm Cam snapshot",
+        "type": "image",
+        "provider": "webcam.io",
+        "url": "https://webcam.io/webcams/9RmqeM/latest.jpg"
+      },
+      {
+        "name": "Mountain Cam snapshot",
+        "type": "image",
+        "provider": "webcam.io",
+        "url": "https://webcam.io/webcams/MwKk2M/latest.jpg"
       }
-    ]
+    ],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Monarch-Ski-Area/forecasts/widget/mid/i"
   },
   {
     "id": "arapahoe-basin",
@@ -112,7 +170,8 @@
         "provider": "HDRelay",
         "providerId": "61e1c1e5faf0bf0b5629ac57"
       }
-    ]
+    ],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Arapahoe-Basin/forecasts/widget/mid/i"
   },
   {
     "id": "keystone",
@@ -121,7 +180,39 @@
     "latitude": 39.6061,
     "longitude": -105.9497,
     "webcamsUrl": "https://www.keystoneresort.com/the-mountain/mountain-conditions/mountain-cams.aspx",
-    "cameras": []
+    "cameras": [
+      {
+        "name": "Dercum Mountain",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/keystonedercum"
+      },
+      {
+        "name": "North Peak",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/keystonenorthpeak"
+      },
+      {
+        "name": "Bergman",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/keystonebergman"
+      },
+      {
+        "name": "River Run",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/keystoneriverrun"
+      },
+      {
+        "name": "Lakeside Village",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/keystonelakeside"
+      }
+    ],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Keystone-Resort/forecasts/widget/mid/i"
   },
   {
     "id": "breckenridge",
@@ -130,7 +221,27 @@
     "latitude": 39.4817,
     "longitude": -106.0384,
     "webcamsUrl": "https://www.breckenridge.com/the-mountain/mountain-conditions/mountain-cams.aspx",
-    "cameras": []
+    "cameras": [
+      {
+        "name": "Peak 9",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/breckenridge10"
+      },
+      {
+        "name": "Peak 8 from Peak 9",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/breckenridge9"
+      },
+      {
+        "name": "Peak 7",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/breckenridge7"
+      }
+    ],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Breckenridge/forecasts/widget/mid/i"
   },
   {
     "id": "copper-mountain",
@@ -139,7 +250,21 @@
     "latitude": 39.5022,
     "longitude": -106.1497,
     "webcamsUrl": "https://www.coppercolorado.com/the-mountain/webcams/",
-    "cameras": []
+    "cameras": [
+      {
+        "name": "Union camera",
+        "type": "image",
+        "provider": "HDRelay",
+        "url": "https://img.hdrelay.com/frames/fb469125-f1f3-459f-aeb4-98cb674e395f/default/last.jpg"
+      },
+      {
+        "name": "Union camera poster",
+        "type": "image",
+        "provider": "HDRelay",
+        "url": "https://watch.hdrelay.io/api/public/poster/cam_copper_mountain___union_1790871057199"
+      }
+    ],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Copper-Mountain/forecasts/widget/mid/i"
   },
   {
     "id": "vail",
@@ -148,7 +273,39 @@
     "latitude": 39.6403,
     "longitude": -106.3742,
     "webcamsUrl": "https://www.vail.com/the-mountain/mountain-conditions/mountain-cams.aspx",
-    "cameras": []
+    "cameras": [
+      {
+        "name": "Sun Up Bowl Overlook",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/vailch11"
+      },
+      {
+        "name": "The Back Bowls",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/vailch21"
+      },
+      {
+        "name": "Gore Range",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/vailch2"
+      },
+      {
+        "name": "Eagle's Nest",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/vaileaglesnest"
+      },
+      {
+        "name": "Snow Stake Summit",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/vailsnowsummit"
+      }
+    ],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Vail/forecasts/widget/mid/i"
   },
   {
     "id": "steamboat",
@@ -157,7 +314,8 @@
     "latitude": 40.4572,
     "longitude": -106.8045,
     "webcamsUrl": "https://www.steamboat.com/the-mountain/live-cams",
-    "cameras": []
+    "cameras": [],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Steamboat-Ski/forecasts/widget/mid/i"
   },
   {
     "id": "crested-butte",
@@ -166,6 +324,26 @@
     "latitude": 38.8994,
     "longitude": -106.965,
     "webcamsUrl": "https://www.skicb.com/the-mountain/mountain-conditions/mountain-cams.aspx",
-    "cameras": []
+    "cameras": [
+      {
+        "name": "Base Cam",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/crestedbuttebase"
+      },
+      {
+        "name": "Umbrella Bar at Ten Peaks",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/crestedbuttebar"
+      },
+      {
+        "name": "Paradise Warming House",
+        "type": "image",
+        "provider": "Brownrice",
+        "url": "https://player.brownrice.com/snapshot/crestedbuttewarm"
+      }
+    ],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Crested-Butte-Mountain/forecasts/widget/mid/i"
   }
 ]

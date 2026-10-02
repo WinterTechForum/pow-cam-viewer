@@ -98,7 +98,7 @@ function resortCard(resort, index) {
   camAction.className = 'cam-link';
   if (resort.cameras?.length) {
     camAction.type = 'button';
-    camAction.textContent = 'Watch here ↗';
+    camAction.textContent = 'Open cams ↗';
     camAction.addEventListener('click', () => openCameraViewer(resort));
   } else {
     camAction.href = resort.webcamsUrl;
@@ -108,7 +108,30 @@ function resortCard(resort, index) {
   }
   bottom.append(label, camAction);
   actions.append(distance, bottom);
-  card.append(info, actions);
+
+  const forecast = document.createElement('details');
+  forecast.className = 'forecast-details';
+  const forecastLabel = document.createElement('summary');
+  forecastLabel.textContent = 'Weather forecast';
+  const forecastPanel = document.createElement('div');
+  forecastPanel.className = 'forecast-panel';
+  forecast.addEventListener('toggle', () => {
+    if (!forecast.open || forecastPanel.childElementCount > 0) return;
+    const frame = document.createElement('iframe');
+    frame.src = resort.snowForecastUrl;
+    frame.title = `${resort.name} snow and weather forecast by Snow-Forecast.com`;
+    frame.loading = 'lazy';
+    frame.referrerPolicy = 'strict-origin-when-cross-origin';
+    forecastPanel.append(frame);
+    const attribution = document.createElement('a');
+    attribution.href = resort.snowForecastUrl;
+    attribution.target = '_blank';
+    attribution.rel = 'noopener noreferrer';
+    attribution.textContent = 'Forecast by Snow-Forecast.com ↗';
+    forecastPanel.append(attribution);
+  });
+  forecast.append(forecastLabel, forecastPanel);
+  card.append(info, actions, forecast);
   return card;
 }
 
@@ -129,39 +152,67 @@ function updateCompareBar() {
   compareButton.textContent = selectedIds.size < 2 ? 'Select 2 to compare' : 'Compare cams ↗';
 }
 
+function renderCompareCard(resort, index) {
+  const card = document.createElement('article');
+  card.className = 'compare-card';
+  const number = document.createElement('span');
+  number.className = 'compare-number';
+  number.textContent = `0${index + 1} / COMPARE`;
+  const name = document.createElement('h3');
+  name.textContent = resort.name;
+  const detail = document.createElement('p');
+  detail.textContent = `${resort.town} · ${formatDistance(resort.distanceMiles)} away · ${formatSnowfall(resort.snowfall24hInches)} est. snow`;
+  card.append(number, name, detail);
+
+  if (!resort.cameras?.length) {
+    const unavailable = document.createElement('p');
+    unavailable.className = 'compare-camera-unavailable';
+    unavailable.textContent = 'No in-page camera feed is available for this resort yet.';
+    const officialLink = document.createElement('a');
+    officialLink.className = 'cam-link';
+    officialLink.href = resort.webcamsUrl;
+    officialLink.target = '_blank';
+    officialLink.rel = 'noopener noreferrer';
+    officialLink.textContent = 'Official cams ↗';
+    card.append(unavailable, officialLink);
+    return card;
+  }
+
+  const toolbar = document.createElement('div');
+  toolbar.className = 'compare-camera-toolbar';
+  const label = document.createElement('label');
+  const select = document.createElement('select');
+  select.setAttribute('aria-label', `Camera view at ${resort.name}`);
+  select.replaceChildren(...resort.cameras.map((camera, cameraIndex) => {
+    const option = document.createElement('option');
+    option.value = String(cameraIndex);
+    option.textContent = camera.name;
+    return option;
+  }));
+  label.append(document.createTextNode('View '), select);
+  toolbar.append(label);
+
+  const status = document.createElement('p');
+  status.className = 'camera-status';
+  status.setAttribute('role', 'status');
+  const stage = document.createElement('div');
+  stage.className = 'camera-stage compare-camera-stage';
+  const officialLink = document.createElement('a');
+  officialLink.className = 'official-source compare-official-source';
+  officialLink.href = resort.webcamsUrl;
+  officialLink.target = '_blank';
+  officialLink.rel = 'noopener noreferrer';
+  officialLink.textContent = 'Official resort cams ↗';
+  const cameraOptions = { stage, status, resortName: resort.name };
+  select.addEventListener('change', () => renderCamera(resort.cameras[Number(select.value)], cameraOptions));
+  card.append(toolbar, status, stage, officialLink);
+  renderCamera(resort.cameras[0], cameraOptions);
+  return card;
+}
+
 function openComparison() {
   const selected = nearbyResorts.filter((resort) => selectedIds.has(resort.id));
-  compareGrid.replaceChildren(...selected.map((resort, index) => {
-    const card = document.createElement('article');
-    card.className = 'compare-card';
-    const number = document.createElement('span');
-    number.className = 'compare-number';
-    number.textContent = `0${index + 1} / COMPARE`;
-    const name = document.createElement('h3');
-    name.textContent = resort.name;
-    const detail = document.createElement('p');
-    detail.textContent = `${resort.town} · ${formatDistance(resort.distanceMiles)} away · ${formatSnowfall(resort.snowfall24hInches)} est. snow`;
-    let camAction;
-    if (resort.cameras?.length) {
-      camAction = document.createElement('button');
-      camAction.type = 'button';
-      camAction.className = 'cam-link';
-      camAction.textContent = 'Watch here ↗';
-      camAction.addEventListener('click', () => {
-        compareDialog.close();
-        openCameraViewer(resort);
-      });
-    } else {
-      camAction = document.createElement('a');
-      camAction.className = 'cam-link';
-      camAction.href = resort.webcamsUrl;
-      camAction.target = '_blank';
-      camAction.rel = 'noopener noreferrer';
-      camAction.textContent = 'Official cams ↗';
-    }
-    card.append(number, name, detail, camAction);
-    return card;
-  }));
+  compareGrid.replaceChildren(...selected.map(renderCompareCard));
   compareDialog.showModal();
 }
 
@@ -180,22 +231,25 @@ function loadHdRelayScript() {
   return hdRelayScriptPromise;
 }
 
-async function renderCamera(camera) {
-  cameraStage.replaceChildren();
-  cameraStatus.textContent = `Loading ${camera.name} from ${camera.provider}…`;
+async function renderCamera(camera, options = {}) {
+  const stage = options.stage || cameraStage;
+  const status = options.status || cameraStatus;
+  const resortName = options.resortName || cameraDialogTitle.textContent;
+  stage.replaceChildren();
+  status.textContent = `Loading ${camera.name} from ${camera.provider}…`;
   const frameId = `hdrelay-target-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
   if (camera.type === 'hdrelay') {
     const target = document.createElement('div');
     target.id = frameId;
-    cameraStage.append(target);
+    stage.append(target);
     try {
       await loadHdRelayScript();
-      if (!cameraStage.contains(target)) return;
+      if (!stage.contains(target)) return;
       window.HDRelay.create({ target: target.id, id: camera.providerId });
-      cameraStatus.textContent = `${camera.name} · player by ${camera.provider}`;
+      status.textContent = `${camera.name} · player by ${camera.provider}`;
     } catch (error) {
-      cameraStatus.textContent = `${error.message} Use the official cam page below.`;
+      status.textContent = `${error.message} Use the official cam page below.`;
     }
     return;
   }
@@ -203,27 +257,27 @@ async function renderCamera(camera) {
   if (camera.type === 'image') {
     const image = document.createElement('img');
     image.src = camera.url;
-    image.alt = `${camera.name} at ${cameraDialogTitle.textContent}`;
+    image.alt = `${camera.name} at ${resortName}`;
     image.loading = 'eager';
     image.addEventListener('load', () => {
-      cameraStatus.textContent = `${camera.name} · current image from ${camera.provider}`;
+      if (stage.contains(image)) status.textContent = `${camera.name} · static snapshot from ${camera.provider}`;
     }, { once: true });
     image.addEventListener('error', () => {
-      cameraStatus.textContent = `This camera image is unavailable. Use the official cam page below.`;
+      if (stage.contains(image)) status.textContent = 'This camera image is unavailable. Use the official cam page below.';
     }, { once: true });
-    cameraStage.append(image);
+    stage.append(image);
     return;
   }
 
   const frame = document.createElement('iframe');
   frame.src = camera.url;
-  frame.title = `${camera.name} at ${cameraDialogTitle.textContent}`;
+  frame.title = `${camera.name} at ${resortName}`;
   frame.loading = 'eager';
   frame.referrerPolicy = 'strict-origin-when-cross-origin';
   frame.allow = 'autoplay; fullscreen; picture-in-picture';
   frame.allowFullscreen = true;
-  cameraStage.append(frame);
-  cameraStatus.textContent = `${camera.name} · player by ${camera.provider}`;
+  stage.append(frame);
+  status.textContent = `${camera.name} · player by ${camera.provider}`;
 }
 
 function openCameraViewer(resort) {
@@ -308,6 +362,7 @@ document.querySelector('#close-compare').addEventListener('click', () => compare
 compareDialog.addEventListener('click', (event) => {
   if (event.target === compareDialog) compareDialog.close();
 });
+compareDialog.addEventListener('close', () => compareGrid.replaceChildren());
 document.querySelector('#close-camera-dialog').addEventListener('click', () => cameraDialog.close());
 cameraDialog.addEventListener('close', () => cameraStage.replaceChildren());
 cameraDialog.addEventListener('click', (event) => {
