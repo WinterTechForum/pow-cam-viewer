@@ -5,7 +5,7 @@ import { readFile } from 'node:fs/promises';
 const resorts = JSON.parse(await readFile(new URL('../public/resorts.json', import.meta.url), 'utf8'));
 
 test('each resort has an official cam page and camera embeds have provider metadata', () => {
-  assert.equal(resorts.length, 11);
+  assert.equal(resorts.length, 15);
   for (const resort of resorts) {
     assert.match(resort.webcamsUrl, /^https:\/\//);
     assert.ok(Array.isArray(resort.cameras));
@@ -19,14 +19,14 @@ test('each resort has an official cam page and camera embeds have provider metad
   }
 });
 
-test('official embeds are available for the four resorts with verified player sources', () => {
+test('official embeds are available for resorts with verified player sources', () => {
   const embeddedResorts = resorts.filter((resort) => resort.cameras.some((camera) => camera.type !== 'image')).map((resort) => resort.id).sort();
-  assert.deepEqual(embeddedResorts, ['arapahoe-basin', 'loveland', 'monarch', 'winter-park']);
+  assert.deepEqual(embeddedResorts, ['arapahoe-basin', 'aspen-highlands', 'aspen-mountain', 'buttermilk', 'loveland', 'monarch', 'snowmass', 'winter-park']);
 });
 
 
 test('every resort has a Snow-Forecast hosted weather widget', () => {
-  assert.equal(resorts.length, 11);
+  assert.equal(resorts.length, 15);
   for (const resort of resorts) {
     assert.match(resort.snowForecastUrl, /^https:\/\/www\.snow-forecast\.com\/resorts\/[\w-]+\/forecasts\/widget\/mid\/i$/);
   }
@@ -34,5 +34,19 @@ test('every resort has a Snow-Forecast hosted weather widget', () => {
 
 test('static snapshots are configured only for resorts with verified image feeds', () => {
   const snapshotResorts = resorts.filter((resort) => resort.cameras.some((camera) => camera.type === 'image')).map((resort) => resort.id).sort();
-  assert.deepEqual(snapshotResorts, ['breckenridge', 'copper-mountain', 'crested-butte', 'keystone', 'loveland', 'monarch', 'vail', 'winter-park']);
+  assert.deepEqual(snapshotResorts, ['aspen-highlands', 'breckenridge', 'copper-mountain', 'crested-butte', 'keystone', 'loveland', 'monarch', 'vail', 'winter-park']);
+});
+
+test('every resort links to its official snow report', () => {
+  for (const resort of resorts) assert.match(resort.snowReportUrl, /^https:\/\//);
+});
+
+test('Aspen Snowmass resorts include verified cam sources and mountain-specific reports', () => {
+  const aspenResorts = resorts.filter((resort) => ['aspen-mountain', 'aspen-highlands', 'buttermilk', 'snowmass'].includes(resort.id));
+  assert.equal(aspenResorts.length, 4);
+  for (const resort of aspenResorts) {
+    assert.match(resort.webcamsUrl, /^https:\/\/www\.aspensnowmass\.com\//);
+    assert.match(resort.snowReportUrl, /^https:\/\/weather\.aspensnowmass\.com\//);
+    assert.ok(resort.cameras.length > 0);
+  }
 });

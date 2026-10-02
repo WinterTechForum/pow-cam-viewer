@@ -7,7 +7,8 @@
     "longitude": -105.5825,
     "webcamsUrl": "https://www.eldora.com/the-mountain/current-conditions/webcams/",
     "cameras": [],
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Eldora-Mountain-Resort/forecasts/widget/mid/i"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Eldora-Mountain-Resort/forecasts/widget/mid/i",
+    "snowReportUrl": "https://www.eldora.com/the-mountain/current-conditions/snow-report-weather/"
   },
   {
     "id": "winter-park",
@@ -48,7 +49,8 @@
         "url": "https://cams.winterparkresort.com/best-western-cam.jpg"
       }
     ],
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Winter-Park/forecasts/widget/mid/i"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Winter-Park/forecasts/widget/mid/i",
+    "snowReportUrl": "https://www.winterparkresort.com/the-mountain/mountain-report"
   },
   {
     "id": "loveland",
@@ -95,7 +97,8 @@
         "url": "https://cams.skiloveland.com/lsacams/valleydeck/valleydeck.jpg"
       }
     ],
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Loveland/forecasts/widget/mid/i"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Loveland/forecasts/widget/mid/i",
+    "snowReportUrl": "https://skiloveland.com/snow-report/"
   },
   {
     "id": "monarch",
@@ -142,7 +145,8 @@
         "url": "https://webcam.io/webcams/MwKk2M/latest.jpg"
       }
     ],
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Monarch-Ski-Area/forecasts/widget/mid/i"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Monarch-Ski-Area/forecasts/widget/mid/i",
+    "snowReportUrl": "https://skimonarch.com/conditions/"
   },
   {
     "id": "arapahoe-basin",
@@ -171,7 +175,8 @@
         "providerId": "61e1c1e5faf0bf0b5629ac57"
       }
     ],
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Arapahoe-Basin/forecasts/widget/mid/i"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Arapahoe-Basin/forecasts/widget/mid/i",
+    "snowReportUrl": "https://www.arapahoebasin.com/snow-report/"
   },
   {
     "id": "keystone",
@@ -212,7 +217,8 @@
         "url": "https://player.brownrice.com/snapshot/keystonelakeside"
       }
     ],
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Keystone-Resort/forecasts/widget/mid/i"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Keystone-Resort/forecasts/widget/mid/i",
+    "snowReportUrl": "https://www.keystoneresort.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx"
   },
   {
     "id": "breckenridge",
@@ -241,7 +247,8 @@
         "url": "https://player.brownrice.com/snapshot/breckenridge7"
       }
     ],
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Breckenridge/forecasts/widget/mid/i"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Breckenridge/forecasts/widget/mid/i",
+    "snowReportUrl": "https://www.breckenridge.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx"
   },
   {
     "id": "copper-mountain",
@@ -264,7 +271,8 @@
         "url": "https://watch.hdrelay.io/api/public/poster/cam_copper_mountain___union_1790871057199"
       }
     ],
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Copper-Mountain/forecasts/widget/mid/i"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Copper-Mountain/forecasts/widget/mid/i",
+    "snowReportUrl": "https://www.coppercolorado.com/the-mountain/conditions-weather/snow-report/"
   },
   {
     "id": "vail",
@@ -305,7 +313,8 @@
         "url": "https://player.brownrice.com/snapshot/vailsnowsummit"
       }
     ],
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Vail/forecasts/widget/mid/i"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Vail/forecasts/widget/mid/i",
+    "snowReportUrl": "https://www.vail.com/the-mountain/mountain-conditions/snow-and-weather-report.aspx"
   },
   {
     "id": "steamboat",
@@ -315,7 +324,8 @@
     "longitude": -106.8045,
     "webcamsUrl": "https://www.steamboat.com/the-mountain/live-cams",
     "cameras": [],
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Steamboat-Ski/forecasts/widget/mid/i"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Steamboat-Ski/forecasts/widget/mid/i",
+    "snowReportUrl": "https://www.steamboat.com/the-mountain/mountain-report"
   },
   {
     "id": "crested-butte",
@@ -344,6 +354,91 @@
         "url": "https://player.brownrice.com/snapshot/crestedbuttewarm"
       }
     ],
-    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Crested-Butte-Mountain/forecasts/widget/mid/i"
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Crested-Butte-Mountain/forecasts/widget/mid/i",
+    "snowReportUrl": "https://www.skicb.com/the-mountain/mountain-conditions/weather-report.aspx"
+  },
+  {
+    "id": "aspen-mountain",
+    "name": "Aspen Mountain",
+    "town": "Aspen",
+    "latitude": 39.2,
+    "longitude": -106.77,
+    "webcamsUrl": "https://www.aspensnowmass.com/four-mountains/aspen-mountain/mountain-cams",
+    "cameras": [
+      {
+        "name": "Silver Queen Gondola Cam",
+        "type": "iframe",
+        "provider": "Aspen Snowmass",
+        "url": "https://aspensnowmass.com/aspenmountainsilverqueengondolacamera"
+      }
+    ],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Aspen-Mountain/forecasts/widget/mid/i",
+    "snowReportUrl": "https://weather.aspensnowmass.com/aspen-summary.html"
+  },
+  {
+    "id": "aspen-highlands",
+    "name": "Aspen Highlands",
+    "town": "Aspen",
+    "latitude": 39.19,
+    "longitude": -106.82,
+    "webcamsUrl": "https://www.aspensnowmass.com/four-mountains/aspen-highlands/mountain-cams",
+    "cameras": [
+      {
+        "name": "Exhibition Lift Cam",
+        "type": "iframe",
+        "provider": "Aspen Snowmass",
+        "url": "https://aspensnowmass.com/aspenhighlandsexhibitionliftcam"
+      },
+      {
+        "name": "Highland Bowl",
+        "type": "image",
+        "provider": "Roundshot",
+        "url": "https://backend.roundshot.com/cams/3d9af2719f79f6c4447593172a4f5c6a/medium"
+      },
+      {
+        "name": "Maroon Bells",
+        "type": "image",
+        "provider": "Roundshot",
+        "url": "https://backend.roundshot.com/cams/19a0db224d24e8f0b9f874eeb6b18a9a/medium"
+      }
+    ],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Aspen-Highlands/forecasts/widget/mid/i",
+    "snowReportUrl": "https://weather.aspensnowmass.com/highlands-summary.html"
+  },
+  {
+    "id": "buttermilk",
+    "name": "Buttermilk",
+    "town": "Aspen",
+    "latitude": 39.2,
+    "longitude": -106.8,
+    "webcamsUrl": "https://www.aspensnowmass.com/four-mountains/buttermilk/mountain-cams",
+    "cameras": [
+      {
+        "name": "Summit Express Lift Cam",
+        "type": "iframe",
+        "provider": "Aspen Snowmass",
+        "url": "https://aspensnowmass.com/summitexpressliftcam"
+      }
+    ],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Buttermilk/forecasts/widget/mid/i",
+    "snowReportUrl": "https://weather.aspensnowmass.com/buttermilk-summary.html"
+  },
+  {
+    "id": "snowmass",
+    "name": "Snowmass",
+    "town": "Snowmass Village",
+    "latitude": 39.2,
+    "longitude": -106.9,
+    "webcamsUrl": "https://www.aspensnowmass.com/four-mountains/snowmass/mountain-cams",
+    "cameras": [
+      {
+        "name": "Village Express Lift Cam",
+        "type": "iframe",
+        "provider": "Aspen Snowmass",
+        "url": "https://aspensnowmass.com/snowmassvillageexpressliftcam"
+      }
+    ],
+    "snowForecastUrl": "https://www.snow-forecast.com/resorts/Snowmass/forecasts/widget/mid/i",
+    "snowReportUrl": "https://weather.aspensnowmass.com/snowmass-summary.html"
   }
 ]

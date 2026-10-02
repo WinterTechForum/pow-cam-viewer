@@ -1,8 +1,4 @@
 import { sortByDistance } from './geo.js';
-import { loadSnowfallEstimates } from './snow.js';
-
-const PREVIEW_LOCATION = { latitude: 39.7392, longitude: -104.9903 };
-const PREVIEW_NAME = 'Denver preview';
 const MAX_COMPARE = 3;
 const HDRELAY_SCRIPT_URL = 'https://manage.hdrelay.com/js/hdrelay.js';
 
@@ -26,8 +22,8 @@ const cameraOfficialLink = document.querySelector('#camera-official-link');
 
 let resorts = [];
 let nearbyResorts = [];
-let locationName = PREVIEW_NAME;
-let snowStatus = 'loading';
+let hasLocation = false;
+let locationName = 'your location';
 let hdRelayScriptPromise;
 const selectedIds = new Set();
 
@@ -36,19 +32,16 @@ function formatDistance(miles) {
   return `${Math.round(miles)} mi`;
 }
 
-function formatSnowfall(inches) {
-  return inches == null ? '—' : `${inches.toFixed(1)}″`;
-}
-
 function resortCard(resort, index) {
   const card = document.createElement('article');
-  card.className = `resort-card${index === 0 ? ' is-nearest' : ''}`;
+  const isNearest = hasLocation && index === 0;
+  card.className = `resort-card${isNearest ? ' is-nearest' : ''}`;
 
   const info = document.createElement('div');
   const kicker = document.createElement('div');
   kicker.className = 'card-kicker';
-  kicker.append(document.createTextNode(index === 0 ? 'Closest resort' : `Mountain ${String(index + 1).padStart(2, '0')}`));
-  if (index === 0) {
+  kicker.append(document.createTextNode(isNearest ? 'Closest resort' : `Mountain ${String(index + 1).padStart(2, '0')}`));
+  if (isNearest) {
     const tag = document.createElement('span');
     tag.className = 'nearest-tag';
     tag.textContent = 'NEAREST';
@@ -63,17 +56,21 @@ function resortCard(resort, index) {
   const snow = document.createElement('p');
   snow.className = 'snow-total';
   const snowLabel = document.createElement('span');
-  snowLabel.textContent = 'EST. SNOW / 24H';
-  const snowValue = document.createElement('strong');
-  snowValue.textContent = snowStatus === 'loading' ? '…' : formatSnowfall(resort.snowfall24hInches);
-  snow.append(snowLabel, snowValue);
+  snowLabel.textContent = 'SNOW REPORT';
+  const snowLink = document.createElement('a');
+  snowLink.href = resort.snowReportUrl;
+  snowLink.target = '_blank';
+  snowLink.rel = 'noopener noreferrer';
+  snowLink.textContent = 'Official report ↗';
+  snow.append(snowLabel, snowLink);
   info.append(kicker, name, town, snow);
 
   const actions = document.createElement('div');
   actions.className = 'card-actions';
   const distance = document.createElement('span');
   distance.className = 'distance';
-  distance.textContent = formatDistance(resort.distanceMiles);
+  distance.textContent = hasLocation ? formatDistance(resort.distanceMiles) : '';
+  distance.hidden = !hasLocation;
 
   const bottom = document.createElement('div');
   bottom.className = 'card-bottom';
@@ -142,7 +139,9 @@ function renderResorts() {
   );
   grid.replaceChildren(...filtered.map(resortCard));
   emptyResults.hidden = filtered.length > 0;
-  summary.textContent = `${filtered.length} RESORT${filtered.length === 1 ? '' : 'S'} · SORTED BY DISTANCE FROM ${locationName.toUpperCase()}`;
+  summary.textContent = hasLocation
+    ? `${filtered.length} RESORT${filtered.length === 1 ? '' : 'S'} · SORTED BY DISTANCE FROM ${locationName.toUpperCase()}`
+    : `${filtered.length} RESORT${filtered.length === 1 ? '' : 'S'} · BROWSE ALL · ENABLE LOCATION TO SORT BY DISTANCE`;
 }
 
 function updateCompareBar() {
@@ -161,7 +160,7 @@ function renderCompareCard(resort, index) {
   const name = document.createElement('h3');
   name.textContent = resort.name;
   const detail = document.createElement('p');
-  detail.textContent = `${resort.town} · ${formatDistance(resort.distanceMiles)} away · ${formatSnowfall(resort.snowfall24hInches)} est. snow`;
+  detail.textContent = hasLocation ? `${resort.town} · ${formatDistance(resort.distanceMiles)} away` : resort.town;
   card.append(number, name, detail);
 
   if (!resort.cameras?.length) {
@@ -296,20 +295,9 @@ function openCameraViewer(resort) {
 
 function setLocation(nextLocation, nextName) {
   locationName = nextName;
+  hasLocation = true;
   nearbyResorts = sortByDistance(resorts, nextLocation);
   status.textContent = `Showing resorts near ${locationName}. Distances are approximate straight-line miles.`;
-  renderResorts();
-}
-
-async function loadSnowTotals() {
-  try {
-    const estimates = await loadSnowfallEstimates(resorts);
-    for (const resort of resorts) resort.snowfall24hInches = estimates.get(resort.id);
-    snowStatus = 'loaded';
-  } catch (error) {
-    snowStatus = 'unavailable';
-    console.warn('Snowfall estimates unavailable:', error);
-  }
   renderResorts();
 }
 
@@ -318,8 +306,8 @@ async function loadResorts() {
     const response = await fetch('/resorts.json');
     if (!response.ok) throw new Error('Resort list could not be loaded.');
     resorts = await response.json();
-    setLocation(PREVIEW_LOCATION, PREVIEW_NAME);
-    loadSnowTotals();
+    nearbyResorts = [...resorts].sort((a, b) => a.name.localeCompare(b.name));
+    renderResorts();
   } catch (error) {
     summary.textContent = 'RESORTS UNAVAILABLE';
     status.textContent = error.message;
@@ -328,7 +316,7 @@ async function loadResorts() {
 
 locateButton.addEventListener('click', () => {
   if (!('geolocation' in navigator)) {
-    status.textContent = 'Location is not available in this browser. Showing the Denver preview.';
+    status.textContent = 'Location is not available in this browser. Browse all resorts alphabetically.';
     return;
   }
   locateButton.disabled = true;
@@ -341,8 +329,8 @@ locateButton.addEventListener('click', () => {
     (error) => {
       const messages = {
         1: 'Location permission was denied. Allow location access in your browser settings to see nearby resorts.',
-        2: 'Your location could not be determined. Try again or use the Denver preview.',
-        3: 'Location lookup timed out. Try again.'
+        2: 'Your location could not be determined. Try again or continue browsing all resorts.',
+        3: 'Location lookup timed out. Try again or continue browsing all resorts.'
       };
       status.textContent = messages[error.code] || 'Location lookup failed. Try again.';
       locateButton.disabled = false;

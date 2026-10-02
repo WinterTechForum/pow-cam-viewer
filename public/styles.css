@@ -148,9 +148,9 @@ h2 { margin: 0; font: 600 clamp(27px, 4vw, 39px)/1.08 var(--display); letter-spa
 }
 
 .data-note { margin: -5px 0 14px; color: var(--muted); font-size: 10px; }
-.data-note a, .official-source { color: #286e74; text-underline-offset: 3px; }
+.data-note a, .official-source, .snow-total a { color: #286e74; text-underline-offset: 3px; }
 .snow-total { display: flex; align-items: baseline; gap: 7px; margin: 13px 0 0; color: #718187; font: 8px var(--mono); letter-spacing: .07em; }
-.snow-total strong { color: #197f7d; font: 600 15px var(--display); letter-spacing: -.03em; }
+.snow-total a { font: 600 10px var(--display); letter-spacing: 0; }
 .camera-dialog { width: min(100% - 28px, 980px); }
 .camera-toolbar { display: flex; align-items: center; gap: 11px; margin-bottom: 10px; }
 .camera-toolbar label { color: var(--muted); font: 9px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
