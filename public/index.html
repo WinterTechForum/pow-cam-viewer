@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#edf1f2">
+    <meta name="description" content="Find nearby Colorado ski resort webcams and compare mountain views before you ride.">
+    <title>POW Cam — find your day</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="POW Cam home"><span class="brand-mark">P</span> POW<span class="brand-light">CAM</span></a>
+      <span class="topbar-note"><span class="live-dot"></span> COLORADO CAM GUIDE</span>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Your mountain morning, sorted</p>
+          <h1>Find your<br><span>bluebird.</span></h1>
+          <p class="hero-description">Check the view before you chase the snow. Find the closest resort cams, compare the mountains, pick your day.</p>
+          <button class="location-button" id="locate-button" type="button">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2v3m0 14v3M2 12h3m14 0h3M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/></svg>
+            <span>Use my location</span>
+            <span class="button-arrow" aria-hidden="true">↗</span>
+          </button>
+          <p class="location-status" id="location-status" role="status">Showing resorts near Denver as a preview. Use your location for nearby results.</p>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="ridge ridge-back"></div>
+          <div class="ridge ridge-front"></div>
+          <div class="trail-line"></div>
+          <span class="art-label">39° 44' N<br>COLORADO ROCKIES</span>
+          <span class="art-spark spark-one">✳</span><span class="art-spark spark-two">✳</span>
+        </div>
+        <div class="hero-foot"><span>01 — 11</span><span>THE FRONT RANGE & BEYOND</span><span>WINTER, ON YOUR TERMS</span></div>
+      </section>
+
+      <section class="resort-section" aria-labelledby="resort-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">The mountain report</p>
+            <h2 id="resort-heading">Cams near you<span class="period">.</span></h2>
+          </div>
+          <label class="search-box">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
+            <input id="search-input" type="search" placeholder="Find a resort" autocomplete="off">
+          </label>
+        </div>
+        <div class="results-meta"><span id="results-summary">Loading resorts…</span><span>COLORADO · DISTANCE FROM YOUR LOCATION</span></div>
+        <p class="data-note">24-hour snowfall is a model estimate from <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a>, not an official resort report.</p>
+        <div id="resort-grid" class="resort-grid" aria-live="polite"></div>
+        <p id="empty-results" class="empty-results" hidden>No resorts match that search. Try a different name.</p>
+      </section>
+    </main>
+
+    <aside class="compare-bar" id="compare-bar" hidden aria-label="Resorts selected to compare">
+      <div class="compare-bar-copy"><span class="compare-count" id="compare-count">0</span><span>resorts selected</span></div>
+      <div class="compare-bar-actions"><button class="text-button" id="clear-compare" type="button">Clear</button><button class="compare-button" id="open-compare" type="button" disabled>Compare cams <span aria-hidden="true">↗</span></button></div>
+    </aside>
+
+    <dialog id="compare-dialog" class="compare-dialog">
+      <div class="dialog-heading">
+        <div><p class="eyebrow">Side by side</p><h2>Pick your mountain<span class="period">.</span></h2></div>
+        <button class="close-button" id="close-compare" type="button" aria-label="Close comparison">×</button>
+      </div>
+      <div id="compare-grid" class="compare-grid"></div>
+      <p class="dialog-note">Watch an official player in POW Cam where the resort provides one; otherwise open its official camera page.</p>
+    </dialog>
+
+    <dialog id="camera-dialog" class="compare-dialog camera-dialog" aria-labelledby="camera-dialog-title">
+      <div class="dialog-heading">
+        <div><p class="eyebrow">Official camera player</p><h2 id="camera-dialog-title">Mountain cam<span class="period">.</span></h2></div>
+        <button class="close-button" id="close-camera-dialog" type="button" aria-label="Close camera viewer">×</button>
+      </div>
+      <div class="camera-toolbar">
+        <label for="camera-select">Camera view</label>
+        <select id="camera-select"></select>
+        <a id="camera-official-link" class="official-source" href="#" target="_blank" rel="noopener noreferrer">Official resort cam page ↗</a>
+      </div>
+      <p id="camera-status" class="camera-status" role="status"></p>
+      <div id="camera-stage" class="camera-stage"></div>
+      <p class="dialog-note">Camera players are provided by the resort or its streaming provider and load only when you open a view.</p>
+    </dialog>
+
+    <footer class="site-footer"><span>POW CAM © 2026</span><span>OFFICIAL CAMERA PLAYERS WHERE AVAILABLE</span><span>BUILT FOR SNOW DAYS <span class="footer-star">✳</span></span></footer>
+  </body>
+</html>

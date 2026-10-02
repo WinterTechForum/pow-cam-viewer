@@ -1,0 +1,11 @@
+{
+  "name": "pow-cam-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Find and compare nearby ski-resort webcams to help choose where to snowboard.",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  }
+}
